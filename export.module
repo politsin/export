@@ -41,7 +41,7 @@ function export_menu() {
  */
 function _export_output() {
   $output = 'export';
-  $limit = FALSE;
+  $limit = 100;
   $nodetypes = [
     'question',
     'order',
@@ -290,7 +290,7 @@ function _export_node_to_array($node) {
     if ($key == 'body') {
       $fields[$key] = $ewrapper->$key->value();
     }
-    /*
+
     if (substr($key, 0, 5) == 'field') {
       $value = $ewrapper->$key->value();
       if (is_array($value) && !empty($value)) {
@@ -360,7 +360,7 @@ function _export_node_to_array($node) {
           $fields[$key] = $ewrapper->$key->value();
         }
       }
-    }/**/
+    }
   }
 
   $data = [
