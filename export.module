@@ -41,7 +41,7 @@ function export_menu() {
  */
 function _export_output() {
   $output = 'export';
-  $limit = 100;
+  $limit = FALSE;
   $nodetypes = [
     'question',
     'order',
@@ -289,6 +289,9 @@ function _export_node_to_array($node) {
   foreach ($node as $key => $val) {
     if ($key == 'body') {
       $fields[$key] = $ewrapper->$key->value();
+    }
+    if (FALSE) {
+
     }
 
     if (substr($key, 0, 5) == 'field') {
