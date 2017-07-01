@@ -125,7 +125,6 @@ function _export_output() {
     print json_encode($data, JSON_UNESCAPED_UNICODE);
   }
   else {
-    dsm($data);
     return $output;
   }
 }
@@ -151,7 +150,7 @@ function _export_query_comments($limit = FALSE) {
       //$ewrapper = entity_metadata_wrapper('comment', $comment);
       $lang = $comment->language;
       $comments[$cid] = [
-        'com' => $comment,
+        //'com' => $comment,
         'cid'    => $cid,
         'pid'    => $comment->pid,
         'nid'    => $comment->nid,
@@ -163,7 +162,6 @@ function _export_query_comments($limit = FALSE) {
         'status'   => $comment->status,
         'thread'   => $comment->thread,
         'name'   => $comment->name,
-        'uuid'   => $comment->uuid,
         'body'   => $comment->comment_body[$lang][0]['value'],
         'path' => drupal_get_path_alias('comment/' . $cid),
       ];
@@ -225,7 +223,6 @@ function _export_query_terms($vocab, $limit = FALSE) {
         'vid'    => $term->vid,
         'vname'  => $term->vocabulary_machine_name,
         'weight' => $term->weight,
-        'uuid'   => $term->uuid,
         'description'   => $term->description,
         'path' => drupal_get_path_alias('taxonomy/term/' . $tid),
       ];
@@ -259,7 +256,6 @@ function _export_query_users($limit = FALSE) {
         $users[$uid] = [
           'user' => $user,
           'uid'   => $uid,
-          'uuid'  => $user->uuid,
           'name' => $user->name,
           'mail' => $user->mail,
           'created' => $user->created,
@@ -303,7 +299,6 @@ function _export_node_to_array($node) {
 
               $refs[$key][$k] = [
                 'id'   => $v->tid,
-                'uuid'  => $v->uuid,
                 'name'  => $v->name,
               ];
             }
@@ -312,13 +307,12 @@ function _export_node_to_array($node) {
               $refs[$key][$k] = _export_node_to_array($ref_node);
               $refs[$key][$k] = [
                 'id'   => $v->nid,
-                'uuid'  => $v->uuid,
                 'title'  => $v->title,
                 'type'  => $v->type,
               ];
             }
             else {
-              dsm($v);
+              // dsm($v);
             }
           }
           else {
@@ -337,7 +331,6 @@ function _export_node_to_array($node) {
             $refs[$key] = [
               'type' => $ref_type,
               'uid'  => $refer->getIdentifier(),
-              'uuid'  => $refer->uuid->value(),
             ];
           }
           elseif (property_exists($value, 'nid')) {
@@ -354,7 +347,6 @@ function _export_node_to_array($node) {
             $refs[$key] = [
               'type' => $ref_type,
               'id'  => $refer->getIdentifier(),
-              'uuid'  => $refer->uuid->value(),
               'name'  => $refer->name->value(),
             ];
           }
@@ -376,7 +368,6 @@ function _export_node_to_array($node) {
       'created' => $node->created,
       'changed' => $node->changed,
       'type'    => $node->type,
-      'uuid'    => $node->uuid,
       'uid'     => $node->uid,
       'uname'   => $node->name,
       'path'    => drupal_get_path_alias('node/' . $node->nid),
